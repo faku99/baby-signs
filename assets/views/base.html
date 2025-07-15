@@ -12,20 +12,16 @@
   {% endblock head %}
 </head>
 
-<body class="min-h-screen bg-background font-sans antialiased">
-    <div class="relative flex min-h-screen flex-col bg-background">
-        <div class="themes-wrapper bg-background">
-                <main class="relative flex min-h-svh flex-1 flex-col bg-background peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow">
-                    <div class="flex flex-1 flex-col gap-4 p-5 pt-5">
-                        <h1 class="scroll-m-20 text-3xl font-bold tracking-tight">
-                            {% block page_title %}{% endblock page_title %}
-                        </h1>
-                        {% block content %}
-                        {% endblock content %}
-                    </div>
-                </main>
-        </div>
+<body class="bg-gray-100 font-sans antialiased">
+  <div class="flex min-h-screen flex-col bg-gray-100">
+    <!-- TODO: Header -->
+    <div class="container mx-auto bg-white">
+      {% block content %}
+      {% endblock content %}
     </div>
+    <!-- TODO: Footer -->
+  </div>
+
   {% block js %}
 
   {% endblock js %}
