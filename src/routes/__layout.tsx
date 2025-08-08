@@ -3,6 +3,7 @@ import { TuonoScripts } from 'tuono'
 import type { TuonoLayoutProps } from 'tuono'
 
 import '../styles/global.css'
+import NavBar from '../components/NavBar'
 
 export default function RootLayout({
   children,
@@ -10,6 +11,7 @@ export default function RootLayout({
   return (
     <html>
       <body>
+        <NavBar />
         <main>{children}</main>
         <TuonoScripts />
       </body>
