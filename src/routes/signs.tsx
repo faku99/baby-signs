@@ -1,5 +1,6 @@
 import type { JSX } from 'react'
 import { TuonoRouteProps } from 'tuono'
+import SignCard from '../components/SignCard';
 
 interface Sign {
   name: string
@@ -18,9 +19,7 @@ export default function SignsPage({
     <>
       <ul>
         {data.results.map((sign) => (
-          <li key={sign.name}>
-            {sign.name}
-          </li>
+          <SignCard sign={sign} />
         ))}
       </ul>
     </>

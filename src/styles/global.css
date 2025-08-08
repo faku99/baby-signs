@@ -19,4 +19,8 @@
     @apply bg-background text-foreground;
     @apply min-h-screen min-w-screen;
   }
+
+  main {
+    @apply w-1/2 mx-auto;
+  }
 }
