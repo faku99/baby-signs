@@ -9,6 +9,7 @@ export default function IndexPage(): JSX.Element {
       </h1>
       <ul className='list-disc'>
         <li><Link href="/signs">Signs list</Link></li>
+        <li><a href="/session/new">Start a new session</a></li>
       </ul>
     </>
   )
