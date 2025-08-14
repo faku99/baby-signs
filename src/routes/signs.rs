@@ -1,5 +1,5 @@
 use serde::Serialize;
-use tuono_app::signs::Sign;
+use tuono_app::models::sign::Sign;
 use tuono_lib::{Props, Request, Response};
 
 #[derive(Serialize)]
