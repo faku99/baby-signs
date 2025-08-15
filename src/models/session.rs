@@ -1,16 +1,32 @@
+use chrono::Local;
+use serde::Serialize;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
+use tuono_lib::Type;
 use uuid::Uuid;
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Type)]
+pub enum SessionStatus {
+    #[default]
+    ACTIVE,
+    COMPLETED
+}
+
+#[derive(Clone, Debug, Default, Serialize, Type)]
 pub struct Session {
     pub id: String,
+    pub completed_signs: Vec<String>,
+    pub started_at: String,
+    pub status: SessionStatus,
 }
 
 impl Session {
     fn new() -> Session {
         Session {
             id: Uuid::new_v4().to_string(),
+            completed_signs: Vec::new(),
+            started_at: Local::now().to_string(),
+            status: SessionStatus::default(),
         }
     }
 }
@@ -35,7 +51,7 @@ impl SessionManager {
             .expect("Failed to acquire lock")
             .insert(session.id.clone(), session.clone());
 
-        tracing::debug!("Created session with ID {}", session.id);
+        tracing::debug!("Created session: {session:?}");
 
         session
     }
