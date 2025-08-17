@@ -1,8 +1,7 @@
 use serde::Serialize;
-use tuono_app::models::session::{Session, SessionManager};
+use tuono_app::{cookie::BSCookie, models::session::{Session, SessionManager}};
 use tuono_lib::{
     axum::http::StatusCode,
-    cookie::Cookie,
     Props, Request, Response, Type,
 };
 
@@ -19,15 +18,12 @@ async fn get_session_page(req: Request, session_manager: SessionManager) -> Resp
         return Response::Props(Props::new_with_status("{}", StatusCode::NOT_FOUND));
     };
 
-    let cookie = Cookie::build(("session-id", session.id.clone()))
-        .domain("localhost")
-        .path("/")
-        .secure(false)
-        .http_only(true)
-        .build();
-
     let mut props = Props::new(SessionPageProps { session });
-    props.add_cookie(cookie);
+
+    let bs_cookie = BSCookie { session_id: session_id.to_string() };
+    if let Some(cookie) = bs_cookie.as_cookie() {
+        props.add_cookie(cookie);
+    }
 
     Response::Props(props)
 }

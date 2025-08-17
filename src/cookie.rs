@@ -1,5 +1,8 @@
 use serde::{Deserialize, Serialize};
-use tuono_lib::{cookie::CookieJar, Request};
+use tuono_lib::{
+    cookie::{Cookie, CookieJar},
+    Request,
+};
 
 const COOKIE_NAME: &str = "bs_session";
 
@@ -20,5 +23,20 @@ impl BSCookie {
         }
 
         cookie.ok()
+    }
+
+    pub fn as_cookie(&self) -> Option<Cookie> {
+        let json = serde_json::to_string(&self);
+        if let Err(json) = &json {
+            tracing::error!("{}", json);
+            return None;
+        }
+
+        Some(Cookie::build((COOKIE_NAME, json.unwrap()))
+            .domain("localhost") // TODO: Use env variable instead
+            .path("/")
+            .secure(false)
+            .http_only(true)
+            .build())
     }
 }
