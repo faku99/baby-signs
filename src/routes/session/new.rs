@@ -17,7 +17,7 @@ fn redirect_to_session(id: String) -> Response {
 #[tuono_lib::handler]
 async fn get_or_create_session(req: Request, session_manager: SessionManager) -> Response {
     if let Some(cookie) = BSCookie::from_request(&req) {
-        return redirect_to_session(cookie.session_id);
+        return redirect_to_session(cookie.session_id());
     }
 
     let session = session_manager.create_session();

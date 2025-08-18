@@ -20,7 +20,7 @@ async fn get_session_page(req: Request, session_manager: SessionManager) -> Resp
 
     let mut props = Props::new(SessionPageProps { session });
 
-    let bs_cookie = BSCookie { session_id: session_id.to_string() };
+    let bs_cookie = BSCookie::new(session_id.to_string());
     if let Some(cookie) = bs_cookie.as_cookie() {
         props.add_cookie(cookie);
     }

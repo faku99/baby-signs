@@ -11,7 +11,7 @@ struct ApiSessionResponse {
 #[tuono_lib::api(GET)]
 async fn session_random_sign(req: Request, session_manager: SessionManager) -> Json<Value> {
     if let Some(cookie) = BSCookie::from_request(&req) {
-        let _session = session_manager.get_session(&cookie.session_id);
+        let _session = session_manager.get_session(&cookie.session_id());
     }
 
     Json(json!(ApiSessionResponse {
