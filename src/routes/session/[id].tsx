@@ -20,7 +20,7 @@ export default function SessionPage({
         <li>completed_signs: {session.completed_signs}</li>
       </ul>
 
-      <RandomSign session={session} />
+      <RandomSign />
     </>
   )
 }

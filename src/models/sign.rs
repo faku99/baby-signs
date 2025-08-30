@@ -1,9 +1,9 @@
 use serde::Serialize;
 use tuono_lib::Type;
 
-#[derive(Serialize, Type)]
+#[derive(Clone, Serialize, Type)]
 pub struct Sign {
-    id: &'static str,
+    pub id: &'static str,
 }
 
 impl Sign {

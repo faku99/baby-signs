@@ -1,15 +1,18 @@
 use chrono::Local;
+use rand::seq::IndexedRandom;
 use serde::Serialize;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use tuono_lib::Type;
 use uuid::Uuid;
 
+use crate::models::sign::Sign;
+
 #[derive(Clone, Debug, Default, Serialize, Type)]
 pub enum SessionStatus {
     #[default]
     ACTIVE,
-    COMPLETED
+    COMPLETED,
 }
 
 #[derive(Clone, Debug, Default, Serialize, Type)]
@@ -28,6 +31,19 @@ impl Session {
             started_at: Local::now().to_string(),
             status: SessionStatus::default(),
         }
+    }
+
+    pub fn get_random_sign(&self) -> Option<Sign> {
+        let unlearnt_signs: Vec<Sign> = Sign::signs()
+            .into_iter()
+            .filter(|s| !self.completed_signs.contains(&s.id.to_string()))
+            .collect();
+        if unlearnt_signs.is_empty() {
+            return None;
+        }
+
+        let mut rng = rand::rng();
+        unlearnt_signs.choose(&mut rng).cloned()
     }
 }
 
